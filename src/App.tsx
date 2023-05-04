@@ -1,24 +1,12 @@
 import "@picocss/pico";
+import Header from "@/components/layout/Header";
 
 const App = () => {
     // index.tsx is the entry point
     // App.tsx sets up the auth and routing
     return (
         <>
-            <header>
-                <h1>CocktailZ</h1>
-                <nav>
-                    <ul>
-                        <li>Recipes</li>
-                        <li>News</li>
-                        <li>Reviews</li>
-                        <li>About Us</li>
-                        <li>
-                            <strong>Search</strong>
-                        </li>
-                    </ul>
-                </nav>
-            </header>
+            <Header />
             <main>
                 <section>
                     <h4>List of 5 random Cocktails</h4>
