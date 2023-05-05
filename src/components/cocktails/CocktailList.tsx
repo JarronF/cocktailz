@@ -1,4 +1,5 @@
 import { Cocktail } from "./Cocktail.ts";
+import CocktailItem from "components/cocktails/CocktailItem";
 
 const DUMMY_COCKTAILS: Cocktail[] = [
     {
@@ -21,17 +22,7 @@ const DUMMY_COCKTAILS: Cocktail[] = [
 
 const CocktailList: React.FC = () => {
     const drinks = DUMMY_COCKTAILS.map((drink) => (
-        <article key={drink.id}>
-            <figure>
-                <h4>{drink.name}</h4>
-                <img src={drink.thumbNail} />
-            </figure>
-            <footer>
-                <sup>
-                    <kbd>{drink.category}</kbd> <kbd>{drink.type}</kbd>
-                </sup>
-            </footer>
-        </article>
+        <CocktailItem drink={drink} />
     ));
 
     return <section className="grid">{drinks}</section>;
