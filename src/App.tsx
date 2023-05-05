@@ -2,6 +2,7 @@ import "@picocss/pico";
 import { Route, Routes } from "react-router-dom";
 import { Home, About, News, Recipes, Reviews } from "pages/index";
 import NavBar from "components/navigation/NavBar/NavBar";
+import Footer from "components/navigation/Footer/Footer";
 
 const App = () => {
     // index.tsx is the entry point
@@ -9,6 +10,7 @@ const App = () => {
     return (
         <>
             <NavBar />
+
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/recipes" element={<Recipes />} />
@@ -16,6 +18,8 @@ const App = () => {
                 <Route path="/news" element={<News />} />
                 <Route path="/reviews" element={<Reviews />} />
             </Routes>
+
+            <Footer />
         </>
     );
 };

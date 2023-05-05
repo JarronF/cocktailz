@@ -1,7 +1,5 @@
 export type Cocktail = {
-    id: string;
-    name: string;
-    thumbNail: string;
-    type: string;
-    category: string;
+    idDrink: string;
+    strDrink: string;
+    strDrinkThumb: string;
 };

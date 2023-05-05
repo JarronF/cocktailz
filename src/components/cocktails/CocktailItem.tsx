@@ -1,17 +1,14 @@
 import { Cocktail } from "./Cocktail";
 const CocktailItem: React.FC<{ drink: Cocktail }> = ({ drink }) => {
     return (
-        <article key={drink.id}>
+        <section>
             <figure>
-                <h4>{drink.name}</h4>
-                <img src={drink.thumbNail} />
+                <img src={drink.strDrinkThumb} />
             </figure>
-            <footer>
-                <sup>
-                    <kbd>{drink.category}</kbd> <kbd>{drink.type}</kbd>
-                </sup>
-            </footer>
-        </article>
+            <figcaption>
+                <small>{drink.strDrink}</small>
+            </figcaption>
+        </section>
     );
 };
 
