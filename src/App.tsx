@@ -1,14 +1,14 @@
 import "@picocss/pico";
 import { Route, Routes } from "react-router-dom";
 import { Home, About, News, Recipes, Reviews } from "pages/index";
-import Header from "components/layout/Header";
+import NavBar from "components/navigation/NavBar/NavBar";
 
 const App = () => {
     // index.tsx is the entry point
     // App.tsx sets up the auth and routing
     return (
         <>
-            <Header />
+            <NavBar />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/recipes" element={<Recipes />} />
