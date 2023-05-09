@@ -7,9 +7,8 @@ export const getRandomNumber = (low: number, high: number): number => {
 
 export const getFeaturedDrinks = (list: Cocktail[], indices: number[]) => {
     const featuredDrinks: Cocktail[] = [];
-    for (let i = 0; i < indices.length; i++) {
-        const drinkIndex = indices[i];
-        featuredDrinks.push(list[drinkIndex]);
+    for (const i in indices) {
+        featuredDrinks.push(list[indices[i]]);
     }
     return featuredDrinks;
 };
