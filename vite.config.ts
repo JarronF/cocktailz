@@ -10,8 +10,8 @@ export default defineConfig({
             "@": path.resolve(__dirname, "./src/"),
 
             components: `${path.resolve(__dirname, "./src/components/")}`,
-
             pages: `${path.resolve(__dirname, "./src/pages/")}`,
+            models: `${path.resolve(__dirname, "./src/models/")}`,
         },
     },
 });
