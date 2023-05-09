@@ -1,35 +1,49 @@
 import axios from "axios";
-import { Cocktail } from "./Cocktail.ts";
+import { Cocktail } from "models/Cocktail";
 import CocktailItem from "components/cocktails/CocktailItem";
+import { getRandomNumber, getFeaturedDrinks } from "../../utils/cocktail-util";
 import { useState, useEffect } from "react";
 
-const baseUrl = "https://thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail";
-const howMany = 5;
+const urlQuery = `${import.meta.env.VITE_API_BASEURL}?c=Cocktail`;
+const displayQty = 5;
 const initialStatelist: Cocktail[] = [];
 
 const CocktailList: React.FC = () => {
-    const [drinkList, setDrinkList] = useState<Cocktail[]>(initialStatelist);
+    const [featuredDrinks, setFeaturedDrinks] =
+        useState<Cocktail[]>(initialStatelist);
 
     useEffect(() => {
-        axios.get(baseUrl).then((response) => {
-            setDrinkList(response.data.drinks.slice(0, howMany));
-        });
+        const drinkIndices: number[] = [];
+        const getDrinks = async () => {
+            const response = await axios.get(urlQuery);
+            const drinkList = response.data.drinks;
+            for (let i = 0; i < displayQty; i++) {
+                drinkIndices.push(getRandomNumber(1, drinkList.length - 1));
+            }
+
+            setFeaturedDrinks(getFeaturedDrinks(drinkList, drinkIndices));
+        };
+
+        getDrinks().catch(console.error);
     }, []);
 
-    const drinks = drinkList.map((drink) => (
-        <CocktailItem drink={drink} key={drink.idDrink} />
-    ));
+    if (featuredDrinks.length > 0) {
+        const drinks = featuredDrinks.map((drink) => (
+            <CocktailItem drink={drink} key={drink.idDrink} />
+        ));
 
-    return (
-        <>
-            <article>
-                <header>
-                    <h4>Featured Cocktails</h4>
-                </header>
-                <div className="grid">{drinks}</div>
-            </article>
-        </>
-    );
+        return (
+            <>
+                <article>
+                    <header>
+                        <h4>Featured Cocktails</h4>
+                    </header>
+                    <div className="grid">{drinks}</div>
+                </article>
+            </>
+        );
+    }
+    return <p>Loading featured drinks...</p>;
 };
 
 export default CocktailList;

@@ -1,14 +1,17 @@
-import { Cocktail } from "./Cocktail";
+import { Link } from "react-router-dom";
+import { Cocktail } from "models/Cocktail";
 const CocktailItem: React.FC<{ drink: Cocktail }> = ({ drink }) => {
     return (
-        <section>
-            <figure>
-                <img src={drink.strDrinkThumb} />
-            </figure>
-            <figcaption>
-                <small>{drink.strDrink}</small>
-            </figcaption>
-        </section>
+        <Link to={`/cocktail/${drink.idDrink}`}>
+            <section>
+                <figure>
+                    <img src={drink.strDrinkThumb} />
+                </figure>
+                <figcaption>
+                    <small>{drink.strDrink}</small>
+                </figcaption>
+            </section>
+        </Link>
     );
 };
 
