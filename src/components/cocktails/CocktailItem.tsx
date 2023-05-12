@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { Cocktail } from "models/Cocktail";
-const CocktailItem: React.FC<{ drink: Cocktail }> = ({ drink }) => {
+import { ICocktail } from "@/models/ICocktail";
+const CocktailItem: React.FC<{ drink: ICocktail }> = ({ drink }) => {
     return (
         <Link to={`/cocktail/${drink.idDrink}`}>
             <section>

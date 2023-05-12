@@ -1,24 +1,30 @@
 import axios from "axios";
-import { Cocktail } from "models/Cocktail";
+import { ICocktail } from "@/models/ICocktail";
 import CocktailItem from "components/cocktails/CocktailItem";
 import { getRandomNumber, getFeaturedDrinks } from "../../utils/cocktail-util";
 import { useState, useEffect } from "react";
 
-const urlQuery = `${import.meta.env.VITE_API_BASEURL}?c=Cocktail`;
+const urlQuery = `${import.meta.env.VITE_API_BASEURL}filter.php?c=Cocktail`;
 const displayQty = 5;
-const initialStatelist: Cocktail[] = [];
+const initialStatelist: ICocktail[] = [];
 
 const CocktailList: React.FC = () => {
     const [featuredDrinks, setFeaturedDrinks] =
-        useState<Cocktail[]>(initialStatelist);
+        useState<ICocktail[]>(initialStatelist);
 
     useEffect(() => {
         const drinkIndices: number[] = [];
         const getDrinks = async () => {
             const response = await axios.get(urlQuery);
-            const drinkList = response.data.drinks;
-            for (let i = 0; i < displayQty; i++) {
-                drinkIndices.push(getRandomNumber(1, drinkList.length - 1));
+            const drinkList: ICocktail[] = response.data.drinks;
+            for (let i = 0; i < displayQty; ) {
+                const random = getRandomNumber(1, drinkList.length - 1);
+                if (drinkIndices.includes(random)) {
+                    //ensure only unique drink ids are added
+                    continue;
+                }
+                drinkIndices.push(random);
+                i++;
             }
 
             setFeaturedDrinks(getFeaturedDrinks(drinkList, drinkIndices));
