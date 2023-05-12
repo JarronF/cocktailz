@@ -32,7 +32,7 @@ const CocktailDetail = () => {
         getDrinkById().catch(console.error);
     }, [id]);
 
-    let drinkItem = <h4>Loading drinks and ingredients...</h4>;
+    let drinkItem = <h4>...Loading drinks and ingredients...</h4>;
     if (!drink || !ingredients) {
         return drinkItem;
     }
