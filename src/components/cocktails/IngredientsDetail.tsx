@@ -16,10 +16,11 @@ const IngredientsDetail: React.FC<{ drink: any }> = ({ drink }) => {
         const itemLine = `${ingredient}${measure}`;
         ingredientArray.push(itemLine);
     }
-    setIngredients(ingredientArray);
 
     let ingredientItem = <h4>...Loading ingredients...</h4>;
+
     if (!ingredients) {
+        setIngredients(ingredientArray);
         return ingredientItem;
     }
     ingredientItem = (
