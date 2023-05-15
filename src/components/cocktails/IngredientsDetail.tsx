@@ -1,10 +1,7 @@
 import { useState } from "react";
 
-const IngredientsDetail: React.FC<{ drink: any }> = ({ drink }) => {
-    const [ingredients, setIngredients] = useState<string[] | null>(null);
-
+const buildIngredientList = (drink: any) => {
     const ingredientArray: string[] = [];
-
     for (let i = 1; i < 15; i++) {
         const ingredient: string | null = drink[`strIngredient${i}`];
 
@@ -16,17 +13,31 @@ const IngredientsDetail: React.FC<{ drink: any }> = ({ drink }) => {
         const itemLine = `${ingredient}${measure}`;
         ingredientArray.push(itemLine);
     }
+    return ingredientArray;
+};
+
+const IngredientsDetail: React.FC<{ drink: any }> = ({ drink }) => {
+    const [ingredients, setIngredients] = useState<string[] | null>(null);
+
+    const handleClick = (item: string) => {
+        //alert("Moused Over " + item);
+
+        alert("Clicked " + item);
+    };
 
     let ingredientItem = <h4>...Loading ingredients...</h4>;
 
     if (!ingredients) {
-        setIngredients(ingredientArray);
+        setIngredients(buildIngredientList(drink));
         return ingredientItem;
     }
+
     ingredientItem = (
         <ul>
             {ingredients.map((lineItem) => (
-                <li key={lineItem}>{lineItem}</li>
+                <li onClick={() => handleClick(lineItem)} key={lineItem}>
+                    {lineItem}
+                </li>
             ))}
         </ul>
     );
