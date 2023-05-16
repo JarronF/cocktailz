@@ -1,4 +1,5 @@
 export interface ICocktail {
+    readonly [key: string]: string | null | undefined;
     idDrink: string;
     strDrink: string;
     strDrinkAlternate?: string | null;

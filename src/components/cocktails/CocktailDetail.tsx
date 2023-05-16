@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { ICocktail } from "@/models/ICocktail";
-import IngredientsDetail from "./IngredientsDetail";
+import IngredientsList from "./IngredientList";
 
 const urlQuery = `${import.meta.env.VITE_API_BASEURL}lookup.php?i=`;
 
@@ -35,7 +35,7 @@ const CocktailDetail = () => {
                         <kbd>{drink.strTags}</kbd>
                     </small>
                 </header>
-                <IngredientsDetail drink={drink} />
+                <IngredientsList drink={drink} />
                 <p>
                     <strong>Glass type: </strong>
                     {drink.strGlass}
