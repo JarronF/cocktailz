@@ -30,22 +30,45 @@ const IngredientDetail: React.FC<IngredientDetailProps> = ({
         setShow(false);
         onShowDetail(null);
     };
-    return (
-        <dialog open={show}>
-            <article>
-                <header>
+
+    const displayIngredientDetail = () => {
+        if (ingredient) {
+            return (
+                <>
+                    <header>
+                        <a
+                            href="#close"
+                            aria-label="Close"
+                            className="close"
+                            onClick={onClose}
+                        ></a>
+                        {name}
+                    </header>
+
+                    <img src={imageUrl} alt={name} />
+                    {ingredient?.strDescription}
+                </>
+            );
+        }
+
+        return (
+            <header>
+                <p aria-busy="true">
                     <a
                         href="#close"
                         aria-label="Close"
                         className="close"
                         onClick={onClose}
                     ></a>
-                    {name}
-                </header>
+                    Loading details, please wait...
+                </p>
+            </header>
+        );
+    };
 
-                <img src={imageUrl} alt={name} />
-                {ingredient?.strDescription}
-            </article>
+    return (
+        <dialog open={show}>
+            <article>{displayIngredientDetail()}</article>
         </dialog>
     );
 };

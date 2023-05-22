@@ -34,44 +34,49 @@ const IngredientList: React.FC<{ drink: ICocktail }> = ({ drink }) => {
         string | null
     >(null);
 
-    let ingredientItem = <h4>...Loading ingredients...</h4>;
-
-    if (!ingredients) {
-        setIngredients(buildIngredientList(drink));
-        return ingredientItem;
-    }
-
     const showDetailHandler = (ingredientId: string | null) => {
         setSelectedIngredientId(ingredientId);
     };
-    ingredientItem = (
-        <ul>
-            {ingredients.map((ing) => (
-                <li key={ing.id}>
-                    <a onClick={() => showDetailHandler(ing.id)}>
-                        {ing.ingredientAndMeasure}
-                    </a>
 
-                    {selectedIngredientId === ing.id && (
-                        <IngredientDetail
-                            name={ing.name}
-                            imageUrl={ing.imageUrl}
-                            onShowDetail={showDetailHandler}
-                        />
-                    )}
-                </li>
-            ))}
-        </ul>
-    );
+    const displayIngredient = () => {
+        if (ingredients) {
+            return (
+                <>
+                    <p>
+                        <strong>Ingredients:</strong>
+                    </p>
+                    <ul>
+                        {ingredients.map((ing) => (
+                            <li key={ing.id}>
+                                <a onClick={() => showDetailHandler(ing.id)}>
+                                    {ing.ingredientAndMeasure}
+                                </a>
 
-    return (
-        <>
-            <p>
-                <strong>Ingredients:</strong>
-            </p>
-            {ingredientItem}
-        </>
-    );
+                                {selectedIngredientId === ing.id && (
+                                    <IngredientDetail
+                                        name={ing.name}
+                                        imageUrl={ing.imageUrl}
+                                        onShowDetail={showDetailHandler}
+                                    />
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </>
+            );
+        } else {
+            setIngredients(buildIngredientList(drink));
+            return (
+                <p>
+                    <strong aria-busy="true">
+                        Loading ingredient list, please wait...
+                    </strong>
+                </p>
+            );
+        }
+    };
+
+    return displayIngredient();
 };
 
 export default IngredientList;

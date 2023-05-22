@@ -6,11 +6,11 @@ import { useState, useEffect } from "react";
 
 const urlQuery = `${import.meta.env.VITE_API_BASEURL}filter.php?c=Cocktail`;
 const displayQty = 5;
-const initialStatelist: ICocktail[] = [];
 
 const CocktailList: React.FC = () => {
-    const [featuredDrinks, setFeaturedDrinks] =
-        useState<ICocktail[]>(initialStatelist);
+    const [featuredDrinks, setFeaturedDrinks] = useState<ICocktail[] | null>(
+        null
+    );
 
     useEffect(() => {
         const drinkIndices: number[] = [];
@@ -33,23 +33,34 @@ const CocktailList: React.FC = () => {
         getDrinks().catch(console.error);
     }, []);
 
-    if (featuredDrinks.length > 0) {
-        const drinks = featuredDrinks.map((drink) => (
-            <CocktailItem drink={drink} key={drink.idDrink} />
-        ));
-
-        return (
-            <>
+    const displayDrinkList = () => {
+        if (featuredDrinks) {
+            return (
                 <article>
                     <header>
                         <h4>Featured Cocktails</h4>
                     </header>
-                    <div className="grid">{drinks}</div>
+                    <div className="grid">
+                        {featuredDrinks.map((drink) => (
+                            <CocktailItem drink={drink} key={drink.idDrink} />
+                        ))}
+                    </div>
                 </article>
-            </>
-        );
-    }
-    return <p>Loading featured drinks...</p>;
+            );
+        } else {
+            return (
+                <article>
+                    <header>
+                        <p aria-busy="true">
+                            Loading featured Cocktails, please wait...
+                        </p>
+                    </header>
+                </article>
+            );
+        }
+    };
+
+    return displayDrinkList();
 };
 
 export default CocktailList;
