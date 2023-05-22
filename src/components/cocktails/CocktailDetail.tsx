@@ -19,40 +19,46 @@ const CocktailDetail = () => {
         getDrinkById().catch(console.error);
     }, [id]);
 
-    let drinkItem = <h4>...Loading drinks...</h4>;
-    if (!drink) {
-        return drinkItem;
-    }
-    drinkItem = (
-        <>
-            <figure>
-                <img src={drink.strDrinkThumb} />
-            </figure>
-            <section>
-                <header className="grid">
-                    <h2>{drink.strDrink}</h2>
-                    <small>
-                        <kbd>{drink.strTags}</kbd>
-                    </small>
-                </header>
-                <IngredientsList drink={drink} />
-                <p>
-                    <strong>Glass type: </strong>
-                    {drink.strGlass}
-                </p>
-                <p>
-                    <strong>Method: </strong>
-                    {drink.strInstructions}
-                </p>
-            </section>
-        </>
-    );
+    const displayDrink = () => {
+        if (drink) {
+            return (
+                <section className="grid">
+                    <figure>
+                        <img src={drink.strDrinkThumb} />
+                    </figure>
+                    <section>
+                        <header className="grid">
+                            <h2>{drink.strDrink}</h2>
+                            <small>
+                                <kbd>{drink.strTags}</kbd>
+                            </small>
+                        </header>
+                        <IngredientsList drink={drink} />
+                        <p>
+                            <strong>Glass type: </strong>
+                            {drink.strGlass}
+                        </p>
+                        <p>
+                            <strong>Method: </strong>
+                            {drink.strInstructions}
+                        </p>
+                    </section>
+                </section>
+            );
+        } else {
+            return (
+                <section>
+                    <p aria-busy="true">
+                        Loading drink information, please wait...
+                    </p>
+                </section>
+            );
+        }
+    };
 
     return (
         <main>
-            <article>
-                <section className="grid">{drinkItem}</section>
-            </article>
+            <article>{displayDrink()}</article>
         </main>
     );
 };
