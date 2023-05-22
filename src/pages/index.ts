@@ -1,7 +1,6 @@
 import { Home } from "pages/Home";
 import { News } from "pages/News";
 import { About } from "pages/About";
-import { Reviews } from "pages/Reviews";
-import { Recipes } from "pages/Recipes";
+import { Cocktails } from "pages/Cocktails";
 
-export { Home, Recipes, News, About, Reviews };
+export { Home, Cocktails, News, About };
