@@ -9,6 +9,7 @@ Simple website to explore various Cocktails, their ingredients and how to make t
 -   TypeScript
 -   ReactJS
 -   Axios
+-   picoCSS
 
 ### Features:
 
