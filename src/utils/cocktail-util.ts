@@ -1,4 +1,5 @@
 import { ICocktail } from "@/models/ICocktail";
+import { IIngredient } from "@/models/IIngredient";
 
 const getRandomNumber = (low: number, high: number): number => {
     const random = Math.floor(Math.random() * (high - low + 1)) + 1;
@@ -28,4 +29,26 @@ export const getRandomDrinkIndices = (
         i++;
     }
     return drinkIndices;
+};
+
+export const buildIngredientList = (drink: ICocktail, imgUrl: string) => {
+    const ingredientArray: IIngredient[] = [];
+    for (let i = 1; i < 15; i++) {
+        const ingredient: string | null | undefined =
+            drink[`strIngredient${i}`];
+
+        if (!ingredient) break;
+
+        const measure: string | null = drink[`strMeasure${i}`]
+            ? ` - ${drink[`strMeasure${i}`]}`
+            : "";
+
+        ingredientArray.push({
+            id: `item_${i}`,
+            name: `${ingredient}`,
+            imageUrl: `${imgUrl}${ingredient}-Medium.png`,
+            ingredientAndMeasure: `${ingredient}${measure}`.trim(),
+        });
+    }
+    return ingredientArray;
 };

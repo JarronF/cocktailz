@@ -3,25 +3,37 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { ICocktail } from "@/models/ICocktail";
 import IngredientsList from "./IngredientList";
+import LoadingIndicator from "../ui/LoadingIndicator";
 
 const urlQuery = `${import.meta.env.VITE_API_BASEURL}lookup.php?i=`;
 
 const CocktailDetail = () => {
     const { id } = useParams();
     const [drink, setDrink] = useState<ICocktail | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    useEffect(() => {
-        const getDrinkById = async () => {
-            const response = await axios.get(urlQuery + id);
+    const getDrinkById = async (apiEndPoint: string) => {
+        try {
+            const response = await axios.get(apiEndPoint);
             const drink = response.data.drinks[0];
             setDrink(drink);
-        };
-        getDrinkById().catch(console.error);
+            setIsLoading(false);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    useEffect(() => {
+        setIsLoading(true);
+        const api = `${urlQuery}${id}`;
+        getDrinkById(api);
     }, [id]);
 
-    const displayDrink = () => {
-        if (drink) {
-            return (
+    if (isLoading) return <LoadingIndicator />;
+
+    return (
+        <>
+            {drink && (
                 <section className="grid">
                     <figure>
                         <img src={drink.strDrinkThumb} />
@@ -44,22 +56,9 @@ const CocktailDetail = () => {
                         </p>
                     </section>
                 </section>
-            );
-        } else {
-            return (
-                <section>
-                    <p aria-busy="true">
-                        Loading drink information, please wait...
-                    </p>
-                </section>
-            );
-        }
-    };
-
-    return (
-        <main>
-            <article>{displayDrink()}</article>
-        </main>
+            )}
+            {!drink && <p>The selected drink was not found</p>}
+        </>
     );
 };
 

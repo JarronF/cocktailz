@@ -15,48 +15,46 @@ const CocktailList: React.FC = () => {
     const [featuredDrinks, setFeaturedDrinks] = useState<ICocktail[] | null>(
         null
     );
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const getDrinks = async () => {
+        try {
+            const response = await axios.get(urlQuery);
+            const drinkList: ICocktail[] = response.data.drinks;
+            const drinkIndices = getRandomDrinkIndices(drinkList, displayQty);
+            setFeaturedDrinks(getFeaturedDrinks(drinkList, drinkIndices));
+            setIsLoading(false);
+        } catch (err) {
+            //TODO: need to show this in some kind of user feedback
+            console.log(err);
+        }
+    };
 
     useEffect(() => {
         setIsLoading(true);
-
-        const getDrinks = async () => {
-            try {
-                const response = await axios.get(urlQuery);
-                const drinkList: ICocktail[] = response.data.drinks;
-                const drinkIndices = getRandomDrinkIndices(
-                    drinkList,
-                    displayQty
-                );
-                setFeaturedDrinks(getFeaturedDrinks(drinkList, drinkIndices));
-            } catch (err) {
-                //TODO: need to show this in some kind of user feedback
-                console.log(err);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
         getDrinks();
     }, []);
 
     if (isLoading) return <LoadingIndicator />;
 
     return (
-        <article>
-            <header>
-                <h4>Featured Cocktails</h4>
-            </header>
-            <div className="grid">
-                {!featuredDrinks && (
-                    <p>There was a problem loading featured drinks</p>
-                )}
-                {featuredDrinks &&
-                    featuredDrinks.map((drink) => (
-                        <CocktailItem drink={drink} key={drink.idDrink} />
-                    ))}
-            </div>
-        </article>
+        <>
+            {featuredDrinks && (
+                <article>
+                    <header>
+                        <h4>Featured Cocktails</h4>
+                    </header>
+                    <div className="grid">
+                        {featuredDrinks.map((drink) => (
+                            <CocktailItem drink={drink} key={drink.idDrink} />
+                        ))}
+                    </div>
+                </article>
+            )}
+            {!featuredDrinks && (
+                <p>There was a problem loading featured drinks</p>
+            )}
+        </>
     );
 };
 
