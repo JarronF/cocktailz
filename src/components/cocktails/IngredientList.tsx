@@ -2,30 +2,9 @@ import { ICocktail } from "@/models/ICocktail";
 import { IIngredient } from "@/models/IIngredient";
 import { useState } from "react";
 import IngredientDetail from "./IngredientDetail";
+import { buildIngredientList } from "../../utils/cocktail-util";
 
 const imgUrl = `${import.meta.env.VITE_API_ING_IMG_URL}`;
-
-const buildIngredientList = (drink: ICocktail) => {
-    const ingredientArray: IIngredient[] = [];
-    for (let i = 1; i < 15; i++) {
-        const ingredient: string | null | undefined =
-            drink[`strIngredient${i}`];
-
-        if (!ingredient) break;
-
-        const measure: string | null = drink[`strMeasure${i}`]
-            ? ` - ${drink[`strMeasure${i}`]}`
-            : "";
-
-        ingredientArray.push({
-            id: `item_${i}`,
-            name: `${ingredient}`,
-            imageUrl: `${imgUrl}${ingredient}-Medium.png`,
-            ingredientAndMeasure: `${ingredient}${measure}`.trim(),
-        });
-    }
-    return ingredientArray;
-};
 
 const IngredientList: React.FC<{ drink: ICocktail }> = ({ drink }) => {
     const [ingredients, setIngredients] = useState<IIngredient[] | null>(null);
@@ -38,9 +17,11 @@ const IngredientList: React.FC<{ drink: ICocktail }> = ({ drink }) => {
         setSelectedIngredientId(ingredientId);
     };
 
-    const displayIngredient = () => {
-        if (ingredients) {
-            return (
+    if (!ingredients) setIngredients(buildIngredientList(drink, imgUrl));
+
+    return (
+        <>
+            {ingredients && (
                 <>
                     <p>
                         <strong>Ingredients:</strong>
@@ -63,20 +44,10 @@ const IngredientList: React.FC<{ drink: ICocktail }> = ({ drink }) => {
                         ))}
                     </ul>
                 </>
-            );
-        } else {
-            setIngredients(buildIngredientList(drink));
-            return (
-                <p>
-                    <strong aria-busy="true">
-                        Loading ingredient list, please wait...
-                    </strong>
-                </p>
-            );
-        }
-    };
-
-    return displayIngredient();
+            )}
+            {!ingredients && <p>Ingredients list failed to load</p>}
+        </>
+    );
 };
 
 export default IngredientList;
