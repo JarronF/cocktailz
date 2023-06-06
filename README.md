@@ -3,7 +3,7 @@
 Simple website to explore various Cocktails, their ingredients and how to make them.
 Written in TypeScript and ReactJS.
 
-View live site demo: <a href="https://melonweb.co.za/cocktailz/" target="_blank">
+View live site demo: <https://melonweb.co.za/cocktailz/>
 
 Please note that the application is still under construction and so some pages and features might not work properly.
 
