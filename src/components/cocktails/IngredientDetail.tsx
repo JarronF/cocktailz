@@ -2,19 +2,16 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { IIngredient } from "@/models/IIngredient";
 import LoadingIndicator from "../ui/LoadingIndicator";
-interface IIngredientDetailProps {
+
+const urlQuery = `${import.meta.env.VITE_API_BASEURL}search.php?i=`;
+
+interface Props {
     name: string;
     imageUrl?: string;
     onShowDetail: (ingredientId: string | null) => void;
 }
 
-const urlQuery = `${import.meta.env.VITE_API_BASEURL}search.php?i=`;
-
-const IngredientDetail: React.FC<IIngredientDetailProps> = ({
-    name,
-    imageUrl,
-    onShowDetail,
-}) => {
+const IngredientDetail = ({ name, imageUrl, onShowDetail }: Props) => {
     const [show, setShow] = useState(true);
     const [ingredient, setIngredient] = useState<IIngredient | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);

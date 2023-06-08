@@ -1,10 +1,10 @@
-import CocktailList from "components/cocktails/CocktailList";
+import FeaturedCocktails from "@/components/cocktails/FeaturedCocktails";
 
 const Home = () => {
     return (
         <>
             <main>
-                <CocktailList />
+                <FeaturedCocktails />
             </main>
         </>
     );
