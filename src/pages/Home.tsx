@@ -3,12 +3,10 @@ import FeaturedCocktails from "@/components/cocktails/FeaturedCocktails";
 
 const Home = () => {
     return (
-        <>
-            <main>
-                <AlphabetList />
-                <FeaturedCocktails />
-            </main>
-        </>
+        <main>
+            <AlphabetList />
+            <FeaturedCocktails />
+        </main>
     );
 };
 export { Home };

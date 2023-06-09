@@ -3,18 +3,25 @@ import css from "./AlphabetList.module.css";
 
 const alphabet = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
 
-const AlphabetList = () => {
+interface Props {
+    letter?: string | undefined;
+}
+const AlphabetList = ({ letter }: Props) => {
     return (
         <article className={css.centred}>
             <p className={css.margin_top}>Browse by name:</p>
-            {alphabet.map((letter) => (
+            {alphabet.map((firstLetter) => (
                 <Link
-                    className={css.link_button}
-                    to={`/cocktails/${letter}`}
+                    className={
+                        firstLetter === letter
+                            ? `${css.link_button} contrast`
+                            : css.link_button
+                    }
+                    to={`/cocktails/${firstLetter}`}
                     role="button"
-                    key={letter}
+                    key={firstLetter}
                 >
-                    {letter}
+                    {firstLetter}
                 </Link>
             ))}
         </article>

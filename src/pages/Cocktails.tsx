@@ -28,34 +28,39 @@ const Cocktails = () => {
                 }
             };
             getDrinksByFirstLetter();
+        } else {
+            setDrinks(null);
         }
     }, [letter]);
 
     if (isLoading) return <LoadingIndicator />;
 
     return (
-        <>
-            <article>
-                <AlphabetList />
-                {letter && !drinks && (
-                    <h4>
-                        No drinks beginning with the letter - <u>{letter}</u>
-                    </h4>
-                )}
+        <article>
+            <AlphabetList letter={letter} />
+            {letter && !drinks && (
+                <h4>
+                    No drinks beginning with the letter - <u>{letter}</u>
+                </h4>
+            )}
 
-                {letter && drinks && (
+            {letter && drinks && (
+                <h4>
+                    Cocktails beginning with - <u>{letter}</u>
+                </h4>
+            )}
+
+            {!isLoading &&
+                letter &&
+                drinks && (
                     <h4>
                         Cocktails beginning with - <u>{letter}</u>
                     </h4>
-                )}
-
-                {!isLoading &&
-                    drinks &&
-                    drinks.map((drink) => (
-                        <CocktailItem key={drink.idDrink} drink={drink} />
-                    ))}
-            </article>
-        </>
+                ) &&
+                drinks.map((drink) => (
+                    <CocktailItem key={drink.idDrink} drink={drink} />
+                ))}
+        </article>
     );
 };
 
