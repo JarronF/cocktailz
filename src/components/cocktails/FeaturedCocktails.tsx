@@ -46,7 +46,7 @@ const FeaturedCocktails = () => {
                     </header>
                     <div className="grid">
                         {featuredDrinks.map((drink) => (
-                            <CocktailItem drink={drink} key={drink.idDrink} />
+                            <CocktailItem key={drink.idDrink} drink={drink} />
                         ))}
                     </div>
                 </article>
