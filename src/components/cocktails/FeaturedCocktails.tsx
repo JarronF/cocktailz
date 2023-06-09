@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 const urlQuery = `${import.meta.env.VITE_API_BASEURL}filter.php?c=Cocktail`;
 const displayQty = 5;
 
-const CocktailList: React.FC = () => {
+const FeaturedCocktails = () => {
     const [featuredDrinks, setFeaturedDrinks] = useState<ICocktail[] | null>(
         null
     );
@@ -46,7 +46,7 @@ const CocktailList: React.FC = () => {
                     </header>
                     <div className="grid">
                         {featuredDrinks.map((drink) => (
-                            <CocktailItem drink={drink} key={drink.idDrink} />
+                            <CocktailItem key={drink.idDrink} drink={drink} />
                         ))}
                     </div>
                 </article>
@@ -58,4 +58,4 @@ const CocktailList: React.FC = () => {
     );
 };
 
-export default CocktailList;
+export default FeaturedCocktails;

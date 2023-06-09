@@ -1,12 +1,12 @@
-import CocktailList from "components/cocktails/CocktailList";
+import AlphabetList from "@/components/cocktails/AlphabetList";
+import FeaturedCocktails from "@/components/cocktails/FeaturedCocktails";
 
 const Home = () => {
     return (
-        <>
-            <main>
-                <CocktailList />
-            </main>
-        </>
+        <main>
+            <AlphabetList />
+            <FeaturedCocktails />
+        </main>
     );
 };
 export { Home };

@@ -6,7 +6,11 @@ import { buildIngredientList } from "../../utils/cocktail-util";
 
 const imgUrl = `${import.meta.env.VITE_API_ING_IMG_URL}`;
 
-const IngredientList: React.FC<{ drink: ICocktail }> = ({ drink }) => {
+interface Props {
+    drink: ICocktail;
+}
+
+const IngredientList = ({ drink }: Props) => {
     const [ingredients, setIngredients] = useState<IIngredient[] | null>(null);
 
     const [selectedIngredientId, setSelectedIngredientId] = useState<
