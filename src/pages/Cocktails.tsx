@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import AlphabetList from "@/components/cocktails/AlphabetList";
 import { ICocktail } from "@/models/ICocktail";
 import axios from "axios";
-import CocktailItem from "@/components/cocktails/CocktailItem";
 import LoadingIndicator from "@/components/ui/LoadingIndicator";
 import { useParams } from "react-router-dom";
+import CocktailList from "@/components/cocktails/CocktailList";
 
 const urlSearch = `${import.meta.env.VITE_API_BASEURL}search.php?f=`;
 
@@ -14,8 +14,8 @@ const Cocktails = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
+        setIsLoading(true);
         if (letter) {
-            setIsLoading(true);
             const getDrinksByFirstLetter = async () => {
                 try {
                     const response = await axios.get(`${urlSearch}${letter}`);
@@ -30,37 +30,25 @@ const Cocktails = () => {
             getDrinksByFirstLetter();
         } else {
             setDrinks(null);
+            setIsLoading(false);
         }
     }, [letter]);
 
     if (isLoading) return <LoadingIndicator />;
 
     return (
-        <article>
+        <>
             <AlphabetList letter={letter} />
-            {letter && !drinks && (
-                <h4>
-                    No drinks beginning with the letter - <u>{letter}</u>
-                </h4>
+            {!letter ? (
+                <p>Please select a letter above to display</p>
+            ) : (
+                <CocktailList
+                    list={drinks}
+                    letter={letter}
+                    heading={`Cocktails beginning with - ${letter}`}
+                />
             )}
-
-            {letter && drinks && (
-                <h4>
-                    Cocktails beginning with - <u>{letter}</u>
-                </h4>
-            )}
-
-            {!isLoading &&
-                letter &&
-                drinks && (
-                    <h4>
-                        Cocktails beginning with - <u>{letter}</u>
-                    </h4>
-                ) &&
-                drinks.map((drink) => (
-                    <CocktailItem key={drink.idDrink} drink={drink} />
-                ))}
-        </article>
+        </>
     );
 };
 

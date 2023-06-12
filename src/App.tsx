@@ -1,6 +1,6 @@
 import "@picocss/pico";
 import { Route, Routes } from "react-router-dom";
-import { Home, About, News, Cocktails } from "pages/index";
+import { Home, About, Cocktails } from "pages/index";
 import NavBar from "components/navigation/NavBar/NavBar";
 import Footer from "components/navigation/Footer/Footer";
 import CocktailDetail from "@/components/cocktails/CocktailDetail";
@@ -18,7 +18,6 @@ const App = () => {
                 <Route path="/cocktails" element={<Cocktails />}>
                     <Route path=":letter" element={<Cocktails />} />
                 </Route>
-                <Route path="/news" element={<News />} />
                 <Route path="/cocktail/:id" element={<CocktailDetail />} />
             </Routes>
 

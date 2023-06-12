@@ -1,15 +1,15 @@
 import axios from "axios";
 import { ICocktail } from "@/models/ICocktail";
-import CocktailItem from "components/cocktails/CocktailItem";
 import LoadingIndicator from "components/ui/LoadingIndicator";
 import {
     getRandomDrinkIndices,
     getFeaturedDrinks,
 } from "../../utils/cocktail-util";
 import { useState, useEffect } from "react";
+import CocktailList from "./CocktailList";
 
 const urlQuery = `${import.meta.env.VITE_API_BASEURL}filter.php?c=Cocktail`;
-const displayQty = 5;
+const displayQty = +`${import.meta.env.VITE_ROWQTY}`;
 
 const FeaturedCocktails = () => {
     const [featuredDrinks, setFeaturedDrinks] = useState<ICocktail[] | null>(
@@ -37,25 +37,7 @@ const FeaturedCocktails = () => {
 
     if (isLoading) return <LoadingIndicator />;
 
-    return (
-        <>
-            {featuredDrinks && (
-                <article>
-                    <header>
-                        <h4>Featured Cocktails</h4>
-                    </header>
-                    <div className="grid">
-                        {featuredDrinks.map((drink) => (
-                            <CocktailItem key={drink.idDrink} drink={drink} />
-                        ))}
-                    </div>
-                </article>
-            )}
-            {!featuredDrinks && (
-                <p>There was a problem loading featured drinks</p>
-            )}
-        </>
-    );
+    return <CocktailList list={featuredDrinks} heading="Featured Cocktails" />;
 };
 
 export default FeaturedCocktails;
