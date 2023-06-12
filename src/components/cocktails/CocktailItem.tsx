@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ICocktail } from "@/models/ICocktail";
+import css from "./CocktailItem.module.css";
 
 interface Props {
     drink: ICocktail;
@@ -7,16 +8,16 @@ interface Props {
 
 const CocktailItem = ({ drink }: Props) => {
     return (
-        <Link to={`/cocktail/${drink.idDrink}`}>
-            <section>
+        <section className={css.maxWidth}>
+            <Link to={`/cocktail/${drink.idDrink}`}>
                 <figure>
                     <img src={drink.strDrinkThumb} />
                 </figure>
                 <figcaption>
                     <small>{drink.strDrink}</small>
                 </figcaption>
-            </section>
-        </Link>
+            </Link>
+        </section>
     );
 };
 
