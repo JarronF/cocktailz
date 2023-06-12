@@ -52,3 +52,17 @@ export const buildIngredientList = (drink: ICocktail, imgUrl: string) => {
     }
     return ingredientArray;
 };
+
+export const sliceArrayIntoChunks = (
+    list: ICocktail[] | null,
+    chunkSize: number
+) => {
+    const chunkedArray = [];
+    if (list) {
+        for (let i = 0; i < list.length; i += chunkSize) {
+            const chunk = list.slice(i, i + chunkSize);
+            chunkedArray.push(chunk);
+        }
+    }
+    return chunkedArray;
+};
