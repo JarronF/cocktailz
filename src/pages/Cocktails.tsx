@@ -39,12 +39,13 @@ const Cocktails = () => {
     return (
         <>
             <AlphabetList letter={letter} />
-            {!letter ? (
-                <p>Please select a letter above to display</p>
-            ) : (
+            {!letter && <p>Please select a letter above to display</p>}
+
+            {letter && !drinks && <p>No drinks beginning with - {letter}</p>}
+
+            {drinks && (
                 <CocktailList
                     list={drinks}
-                    letter={letter}
                     heading={`Cocktails beginning with - ${letter}`}
                 />
             )}

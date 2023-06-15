@@ -6,19 +6,16 @@ import { sliceArrayIntoChunks } from "@/utils/cocktail-util";
 interface Props {
     list: ICocktail[] | null;
     heading: string | undefined;
-    letter?: string | undefined;
 }
 
 const chunkSize = +`${import.meta.env.VITE_ROWQTY}`;
 
-const CocktailList = ({ list, heading, letter }: Props) => {
+const CocktailList = ({ list, heading }: Props) => {
     const [rows, setRows] = useState<ICocktail[][] | null>(null);
 
     if (list && !rows) {
         setRows(sliceArrayIntoChunks(list, chunkSize));
     }
-
-    if (!rows && letter) heading = `No Cocktails beginning with - ${letter}`;
 
     return (
         <>

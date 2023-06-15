@@ -37,7 +37,18 @@ const FeaturedCocktails = () => {
 
     if (isLoading) return <LoadingIndicator />;
 
-    return <CocktailList list={featuredDrinks} heading="Featured Cocktails" />;
+    return (
+        <>
+            {!featuredDrinks ? (
+                <p>No drinks found</p>
+            ) : (
+                <CocktailList
+                    list={featuredDrinks}
+                    heading="Featured Cocktails"
+                />
+            )}
+        </>
+    );
 };
 
 export default FeaturedCocktails;
